@@ -8,10 +8,12 @@ app.use(express.static(path.join(__dirname, 'build')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+const PORT = process.env.NODE_PORT
+
 app.post('/login', login)
 
 app.post('/register', register)
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
 
-app.listen(process.env.PORT || 8080, () => console.log(`Server listening on port ${process.env.PORT || 8080}`))
+app.listen(PORT || 8080, () => console.log(`Server listening on port ${PORT || 8080}`))
