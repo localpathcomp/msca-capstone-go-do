@@ -1,6 +1,7 @@
 {
   "name": "go-do",
   "version": "0.1.0",
+  "main": "app.js",
   "private": true,
   "proxy": "http://localhost:8080",
   "dependencies": {
