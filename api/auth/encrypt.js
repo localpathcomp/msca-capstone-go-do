@@ -18,7 +18,7 @@ const compare = (password, hash, callback) => {
             return                
         }
         callback(result)
-    });
+    })
 }
 
 module.exports = { encrypt, compare }

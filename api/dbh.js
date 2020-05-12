@@ -4,5 +4,12 @@ const conn = require('mysql').createConnection({
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
 });
+
+conn.connect((err) => {
+    if (err) {
+      console.error('error connecting: ' + err.stack)
+      return
+    }
+})
  
 module.exports = { conn }

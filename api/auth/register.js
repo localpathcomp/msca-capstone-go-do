@@ -4,8 +4,9 @@ const { encrypt } = require('./encrypt')
 const register = (req, res) => {
 
     const createUser = (req) => (passHash) => {
+        
         const user = { username: req.body.username, email: req.body.email, password: passHash }
-        conn.query(registerQuery, user, (err, results, fields) => {
+        conn.query("INSERT INTO users SET ?", user, (err, results, fields) => {
             if (err) {
                 if (err.code === 'ER_DUP_ENTRY') {
                     //http resource conflict
@@ -30,7 +31,4 @@ const register = (req, res) => {
     encrypt(req.body.password, createUser(req))
 }
 
-const registerQuery = () => {
-    return "INSERT INTO users SET ?"
-}
 module.exports = { register }
