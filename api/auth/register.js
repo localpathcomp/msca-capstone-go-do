@@ -1,10 +1,10 @@
 const { conn } = require('../dbh')
-const { encrypt } = require('./encrypt')
+const { encrypt } = require('../middleware/encrypt')
+const { validateFields } = require('../middleware/validateFields')
 
 const register = (req, res) => {
 
     const createUser = (req) => (passHash) => {
-        
         const user = { firstName: req.body.firstName, email: req.body.email, password: passHash }
         conn.query("INSERT INTO users SET ?", user, (err, results, fields) => {
             if (err) {
@@ -28,7 +28,7 @@ const register = (req, res) => {
         })
     }
 
-    encrypt(req.body.password, createUser(req))
+    if (validateFields(req, res)) encrypt(req.body.password, createUser(req))
 }
 
 module.exports = { register }

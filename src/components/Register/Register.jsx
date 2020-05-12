@@ -34,16 +34,16 @@ const Register = props => {
 
     const verifyForm = (e) => {
         e.preventDefault()
-        if (registrationForm.firstName === '' || registrationForm.firstName === undefined) {
+        /* if (registrationForm.firstName === '' || registrationForm.firstName === undefined) {
             setInputError('First name cannot be blank!')
             return
         } else if (registrationForm.email === '' || registrationForm.email === undefined) {
             setInputError('Email cannot be blank!')
             return
-        } else {
+        } else { */
             setInputError(null)
             registerUser()
-        }
+        //}
     }
     
     const registerUser = () => {
@@ -114,7 +114,7 @@ const Register = props => {
                         autoComplete="off"
                         name="passwordVerify" />
                 </div>
-                { inputError && <p>{inputError}</p> }
+                { inputError && <p className="registration-error">{inputError}</p> }
                 <div className="form-group">
                     <button type="submit" disabled={disable}>Register</button>
                 </div>

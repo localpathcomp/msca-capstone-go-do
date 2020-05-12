@@ -20,18 +20,18 @@ return (
                 <AppVersion />
             </div>
             <div className="side-drawer-logo">
-                <Link to="/">GoDo</Link>
+                <Link to="/" onClick={ props.click }>GoDo</Link>
             </div>            
         </div>
         <ul>
             <li>
-                <Link to="/register">Create Account</Link>
+                <Link to="/register" onClick={ props.click }>Create Account</Link>
             </li>
             <li>
-                <Link to="/login">Login</Link>
+                <Link to="/login" onClick={ props.click }>Login</Link>
             </li>
             <li>
-                <Link to="/forgot-password">Forgot Password</Link>
+                <Link to="/forgot-password" onClick={ props.click }>Forgot Password</Link>
             </li>
         </ul>
         <div className="side-bar-footer">

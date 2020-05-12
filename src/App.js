@@ -34,7 +34,7 @@ const PrimaryLayout = () => {
 return (
   <div className="primary-layout">
     <Navbar sideDrawerClickHandler={ toggleSideDrawer } />
-    <SideDrawer show={ sideDrawerOpen }/>
+    <SideDrawer show={sideDrawerOpen} click={toggleSideDrawer}/>
     { backdrop }
     <main className="entry-content">
       <Switch>

@@ -1,5 +1,6 @@
 const { conn } = require('../dbh')
-const { compare } = require('./encrypt')
+const { compare } = require('../middleware/encrypt')
+const { validateFields } = require('../middleware/validateFields')
 
 const login = (req, res) => {
 
@@ -22,14 +23,14 @@ const login = (req, res) => {
                 return
             } else if (!results) {
                 //http no account found
-                res.status(204).send('You need to sign up for an account before logging in!')
+                res.status(404).send('You need to sign up for an account before logging in!')
                 return
             } else if (results) {            
                 compare(req.body.password, results[0].password, handleResult)
             }
         })
     }
-    retrieveUser(req)
+    if (validateFields(req, res)) retrieveUser(req)
 }
 
 module.exports = { login }
