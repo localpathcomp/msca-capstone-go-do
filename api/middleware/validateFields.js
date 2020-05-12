@@ -13,4 +13,4 @@ const validateFields = (req, res) => {
     return true
 }
 
-module.exports = validateFields
+module.exports = { validateFields }

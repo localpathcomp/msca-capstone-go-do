@@ -27,7 +27,7 @@ const register = (req, res) => {
             }
         })
     }
-
+    
     if (validateFields(req, res)) encrypt(req.body.password, createUser(req))
 }
 
