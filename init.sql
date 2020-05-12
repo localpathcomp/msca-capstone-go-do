@@ -5,7 +5,7 @@ use `go_do`;
 
 CREATE TABLE `users` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `firstName` varchar(255) NOT NULL,
+    `first_name` varchar(255) NOT NULL,
     `email` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `verified_at` DATETIME DEFAULT NULL,
