@@ -5,9 +5,10 @@ use `go_do`;
 
 CREATE TABLE `users` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `username` varchar(255) NOT NULL,
+    `firstName` varchar(255) NOT NULL,
     `email` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
+    `verified_at` DATETIME DEFAULT NULL,
     `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `deleted_at` DATETIME DEFAULT NULL,

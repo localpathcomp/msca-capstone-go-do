@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -9,11 +9,11 @@ import Navbar from './components/Navbar/Navbar'
 import SideDrawer from './components/SideDrawer/SideDrawer'
 import Backdrop from './components/Backdrop/Backdrop'
 import Home from './components/Home/Home'
+import Register from './components/Register/Register'
 
 const PrimaryLayout = () => {
 
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
-  //const [sessionCookie, seSessionCookie] = useState('')
   let backdrop;
   const toggleSideDrawer = () => {
     setSideDrawerOpen(!sideDrawerOpen)
@@ -24,23 +24,13 @@ const PrimaryLayout = () => {
   if (sideDrawerOpen) {
     backdrop = <Backdrop click={toggleBackdrop} />
   }
-  const getDevCookie = () => {
+  useEffect(() => {
     fetch('/api/session/retrieve')
       .then(response => response.json())
       .then(data => console.log(data))
-  }
+  }, [])
   
-  const getLoginStatus = () => {
-    fetch('/api/session/check')
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }
-  const getLogout = () => {
-    fetch('/api/session/logout')
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }  
-
+  
 return (
   <div className="primary-layout">
     <Navbar sideDrawerClickHandler={ toggleSideDrawer } />
@@ -52,7 +42,9 @@ return (
           <Home />
         </Route>
         <Route path="/login" component={LoginPage} />
-        <Route path="/register" component={RegisterPage} />
+        <Route path="/register">
+          <Register loggedIn={ false } />
+        </Route>/>
       </Switch>
     </main>
   </div>
@@ -60,7 +52,6 @@ return (
 }
 
 const LoginPage = () => <div>Login Page</div>
-const RegisterPage = () => <div>Register Page</div>
 
 const App = () => (
   <Router>

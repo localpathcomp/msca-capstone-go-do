@@ -14,7 +14,7 @@ const login = (req, res) => {
     }
     const retrieveUser = (req) => {
         const user = { email: req.body.email }
-        conn.query('SELECT username, email, password FROM users WHERE ?', user, (err, results, fields) => {
+        conn.query('SELECT firstName, email, password FROM users WHERE ? AND verified_at IS NOT NULL', user, (err, results, fields) => {
             if (err) {
                 console.log(err)
                 //http service unavailable

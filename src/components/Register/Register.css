@@ -1,0 +1,25 @@
+.register-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.register-wrapper form {
+    width: 300px;
+    padding: 20px 30px;
+    border-radius: 5px;
+    box-shadow: 1px 0 5px rgba(0,0,0,0.2);
+}
+
+.register-wrapper form button {
+    font-family: 'Leckerli One', cursive;
+    font-size: 1.5rem;
+    background: #09d3ac;
+    color: #fff;
+    width: 100%;
+    padding: 0.5rem 0;
+    margin: 0.75rem 0 0 0;
+    border-radius: 2px;
+    border-color: #09d3ac;
+}

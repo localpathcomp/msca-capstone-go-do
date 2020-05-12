@@ -5,7 +5,7 @@ const register = (req, res) => {
 
     const createUser = (req) => (passHash) => {
         
-        const user = { username: req.body.username, email: req.body.email, password: passHash }
+        const user = { firstName: req.body.firstName, email: req.body.email, password: passHash }
         conn.query("INSERT INTO users SET ?", user, (err, results, fields) => {
             if (err) {
                 if (err.code === 'ER_DUP_ENTRY') {
