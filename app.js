@@ -11,7 +11,7 @@ const options = {
     database: process.env.SESSION_DB_NAME
 }
 const sessionStore = new MySQLStore(options)
-const PORT = process.env.NODE_PORT
+const PORT = process.env.PORT
 
 const { login } = require('./api/auth/login')
 const { register } = require('./api/auth/register')
