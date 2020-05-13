@@ -50,3 +50,13 @@ CREATE TABLE `notifications` (
     PRIMARY KEY (id),
     FOREIGN KEY (list_id) REFERENCES lists(id)
 );
+
+CREATE TABLE `pending_registrations` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `user_id` int(11),
+    `verification_link` varchar(255),
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `deleted_at` DATETIME DEFAULT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);

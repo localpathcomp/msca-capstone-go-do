@@ -1,8 +1,11 @@
+const crypto = require('crypto')
 const { conn } = require('../dbh')
 const { encrypt } = require('../middleware/encrypt')
 const { validateFields } = require('../middleware/validateFields')
+const { registrationMail } = require('../middleware/mail/registrationMail')
 
 const register = (req, res) => {
+    const verificationLink = crypto.randomBytes(36)
 
     const createUser = (req) => (passHash) => {
         const user = { first_name: req.body.firstName, email: req.body.email, password: passHash }
@@ -21,9 +24,20 @@ const register = (req, res) => {
                 //http not modified
                 res.status(304).send('There\'s been an error! Please try again!')
                 return
-            } else {
-                //http resource created
-                res.status(201).send('User made!')
+            } else if (results) {  
+                const userVerify = { user_id: results.insertId, verification_link: verificationLink.toString('hex') }
+                conn.query("INSERT INTO pending_registrations SET ?", userVerify, (err, results, fields) => {
+                    if (err) {
+                        console.log(err)
+                        //http service unavailable
+                        res.status(503).send('There\'s been an error! Please try again or wait for the service to become available!')
+                        return                        
+                    } else if (results) {               
+                        registrationMail(req, verificationLink.toString('hex'))
+                        //http resource created
+                        res.status(201).send('User made!')
+                    }
+                })
             }
         })
     }

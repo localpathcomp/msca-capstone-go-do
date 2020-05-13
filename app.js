@@ -5,6 +5,7 @@ const app = express()
 const { sessionStore } = require('./api/middleware/session')
 const { login } = require('./api/auth/login')
 const { register } = require('./api/auth/register')
+const { accountValidation } = require('./api/auth/accountValidation')
 
 const PORT = process.env.PORT
 
@@ -19,9 +20,13 @@ app.use(session({
     saveUninitialized: true
 }))
 
-app.post('/login', login)
+app.get('/api/session/retrieve', (req, res) => {
+    res.status(200).json({ message: 'ok' })
+})
 
+app.post('/login', login)
 app.post('/register', register)
+app.get('/validate-account/:registrationLink', accountValidation)
 
 app.get('/*', (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
 

@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Route,
   Switch
-} from 'react-router-dom';
-import './App.css';
+} from 'react-router-dom'
+import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import SideDrawer from './components/SideDrawer/SideDrawer'
+import Footer from './components/Footer/Footer'
 import Backdrop from './components/Backdrop/Backdrop'
-import Home from './components/Home/Home'
-import Register from './components/Register/Register'
+import SubHome from './components/Home/SubHome'
+import SubRegister from './components/Register/SubRegister'
+import SubLogin from './components/Login/SubLogin'
 
 const PrimaryLayout = () => {
 
@@ -39,19 +41,23 @@ return (
     <main className="entry-content">
       <Switch>
         <Route path="/" exact >
-          <Home />
+          <SubHome />
         </Route>
-        <Route path="/login" component={LoginPage} />
+        <Route path="/login">
+          <SubLogin />
+        </Route>
         <Route path="/register">
-          <Register loggedIn={ false } />
-        </Route>/>
+          <SubRegister />
+        </Route>
+        <Route path="*">
+          <SubHome />
+        </Route>
       </Switch>
     </main>
+    <Footer />
   </div>
 )
 }
-
-const LoginPage = () => <div>Login Page</div>
 
 const App = () => (
   <Router>
