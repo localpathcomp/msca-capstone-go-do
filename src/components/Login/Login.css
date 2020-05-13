@@ -1,0 +1,33 @@
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f5f5f5;
+}
+.login-wrapper form {
+    width: 300px;
+    padding: 20px 30px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 0 5px rgba(0,0,0,0.2);
+}
+.login-wrapper form button {
+    font-family: 'Leckerli One', cursive;
+    font-size: 1.5rem;
+    background: #09d3ac;
+    color: #fff;
+    width: 100%;
+    padding: 0.5rem 0;
+    margin: 0.75rem 0 0 0;
+    border-radius: 2px;
+    border-color: #09d3ac;
+}
+.login-wrapper form button:hover,
+.login-wrapper form button:focus {
+    background: #06997c;
+}
+.login-error {
+    text-align: center;
+    color: rgb(202, 27, 27);
+}

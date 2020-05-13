@@ -34,16 +34,16 @@ const Register = props => {
 
     const verifyForm = (e) => {
         e.preventDefault()
-        /* if (registrationForm.firstName === '' || registrationForm.firstName === undefined) {
+        if (registrationForm.firstName === '' || registrationForm.firstName === undefined) {
             setInputError('First name cannot be blank!')
             return
         } else if (registrationForm.email === '' || registrationForm.email === undefined) {
             setInputError('Email cannot be blank!')
             return
-        } else { */
+        } else {
             setInputError(null)
             registerUser()
-        //}
+        }
     }
     
     const registerUser = () => {
@@ -55,22 +55,19 @@ const Register = props => {
           .then(response => {
               if (response.status === 201) {
                 document.querySelector('form').reset()
-                  alert('signup success!')
+                  alert('Signup success! Please check your email to verify your account.')
                   props.history.push('/login')
             }
           })
-          .catch(error => {
-              if (error.response.status) {
+            .catch(error => {
+            if (error.response.status === 500) {
+                  setInputError('Services are temporarily disabled. Please try again later.')
+              } else if (error.response.status) {
                 setInputError(error.response.data)
             }
           })
       }
 
-    if (props.loggedIn === true) {
-        return (
-            <div>logged in</div>
-            )
-    }
     return (
             <div className="register-wrapper">
             <form onSubmit={ verifyForm }>

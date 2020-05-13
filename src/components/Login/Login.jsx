@@ -1,12 +1,102 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { withRouter } from 'react-router-dom'
+import axios from 'axios'
+
+import './Login.css'
 
 const Login = props => {
 
+    //const firstRender = useRef(true)
+    const [disable, setDisabled] = useState(false)
+    const [inputError, setInputError] = useState(null)
+    const [loginForm, setLoginForm] = useState({})
+
+    const handleInputChange = e => {
+        const { name, value } = e.target
+        setLoginForm({ ...loginForm, [name]: value })
+    }
+    /* 
+    useEffect(() => {
+        if (firstRender.current) {
+            firstRender.current = false
+            return
+          }
+        const passwordValidation = () => {
+            if (registrationForm.password !== registrationForm.passwordVerify) {
+                setInputError('Passwords must match!')
+                return true
+            }
+            setInputError(null)
+            return false
+        }
+        setDisabled(passwordValidation())
+    }, [registrationForm.password, registrationForm.passwordVerify]) */
+
+    const verifyForm = (e) => {
+        e.preventDefault()
+        if (loginForm.email === '' || loginForm.email === undefined) {
+            setInputError('Email cannot be blank!')
+            return
+        } else if (loginForm.password === '' || loginForm.password === undefined) {
+            setInputError('Password cannot be blank!')
+            return
+        } else {
+            setInputError(null)
+            setDisabled(false)
+            loginUser()
+        }
+    }
+    
+    const loginUser = () => {
+        axios.post('/login', {
+            email: loginForm.email,
+            password: loginForm.password
+          })
+          .then(response => {
+              if (response.status === 200) {
+                document.querySelector('form').reset()
+                  props.history.push('/')
+            }
+          })
+            .catch(error => {
+            if (error.response.status === 500) {
+                  setInputError('Services are temporarily disabled. Please try again later.')
+              } else if (error.response.status) {
+                setInputError(error.response.data)
+            }
+          })
+      }
+
     return (
-        <div>
-            login hello
-        </div>
-    )
+            <div className="login-wrapper">
+            <form onSubmit={ verifyForm }>
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        onChange={handleInputChange}
+                        id="email"
+                        className="form-control"
+                        type="email"
+                        autoComplete="email"
+                        name="email" />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        onChange={handleInputChange}
+                        id="password"
+                        className="form-control"
+                        type="password"
+                        autoComplete="new-password"
+                        name="password" />
+                </div>
+                { inputError && <p className="login-error">{inputError}</p> }
+                <div className="form-group">
+                    <button type="submit" disabled={disable}>Login</button>
+                </div>
+            </form>
+            </div>
+        )
 }
 
-export default Login
+export default withRouter(Login)

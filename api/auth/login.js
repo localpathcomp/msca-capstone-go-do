@@ -2,7 +2,7 @@ const { conn } = require('../dbh')
 const { compare } = require('../middleware/encrypt')
 const { validateFields } = require('../middleware/validateFields')
 
-const login = (req, res) => {
+const login = (req, res) => {   
 
     const handleResult = (result) => {
         if (result === true) {
