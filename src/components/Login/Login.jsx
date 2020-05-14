@@ -1,36 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import allActions from '../../actions/index'
 import axios from 'axios'
 
 import './Login.css'
 
 const Login = props => {
 
-    //const firstRender = useRef(true)
     const [disable, setDisabled] = useState(false)
     const [inputError, setInputError] = useState(null)
     const [loginForm, setLoginForm] = useState({})
+    
+    
+    const dispatch = useDispatch()
+
+    const loginSuccess = (data) => {
+        dispatch(allActions.jwtActions.setToken(data))
+               
+        //document.querySelector('form').reset()
+        //props.history.push('/')
+    }
 
     const handleInputChange = e => {
         const { name, value } = e.target
         setLoginForm({ ...loginForm, [name]: value })
     }
-    /* 
-    useEffect(() => {
-        if (firstRender.current) {
-            firstRender.current = false
-            return
-          }
-        const passwordValidation = () => {
-            if (registrationForm.password !== registrationForm.passwordVerify) {
-                setInputError('Passwords must match!')
-                return true
-            }
-            setInputError(null)
-            return false
-        }
-        setDisabled(passwordValidation())
-    }, [registrationForm.password, registrationForm.passwordVerify]) */
 
     const verifyForm = (e) => {
         e.preventDefault()
@@ -54,8 +49,7 @@ const Login = props => {
           })
           .then(response => {
               if (response.status === 200) {
-                document.querySelector('form').reset()
-                  props.history.push('/')
+                  loginSuccess(response.data)
             }
           })
             .catch(error => {

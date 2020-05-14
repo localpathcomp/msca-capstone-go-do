@@ -6,8 +6,9 @@ const { sessionStore } = require('./api/middleware/session')
 const { login } = require('./api/auth/login')
 const { register } = require('./api/auth/register')
 const { accountValidation } = require('./api/auth/accountValidation')
+const { jwt } = require('./api/middleware/jwt')
 
-const PORT = process.env.PORT
+const NODE_PORT = process.env.PORT
 
 app.use(express.static(path.join(__dirname, 'build')))
 app.use(express.json())
@@ -27,7 +28,8 @@ app.get('/api/session/retrieve', (req, res) => {
 app.post('/login', login)
 app.post('/register', register)
 app.get('/validate-account/:registrationLink', accountValidation)
+app.post('/api/token', jwt)
+app.get('/*', (req, res) => res.status(200).redirect('http://localhost:3000'))
+//app.get('/*', (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
 
-app.get('/*', (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
-
-app.listen(PORT || 8080, () => console.log(`Server listening on port ${PORT || 8080}`))
+app.listen(NODE_PORT || 8080, () => console.log(`Server listening on port ${NODE_PORT || 8080}`))

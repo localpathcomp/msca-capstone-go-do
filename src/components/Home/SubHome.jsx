@@ -29,7 +29,7 @@ const SubHome = props => {
             <Route path={`${match.path}`}>
                 <Home />
             </Route>
-            <Route exact path={`${match.path}/*`}>
+            <Route path={`${match.path}/*`}>
                 <Home />
             </Route>
         </Switch>

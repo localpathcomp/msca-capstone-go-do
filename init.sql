@@ -60,3 +60,11 @@ CREATE TABLE `pending_registrations` (
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE `web_tokens` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `web_token` varchar(255),
+    `token_expires` bigint UNSIGNED,
+    `refresh_token` varchar(255),
+    PRIMARY KEY (id)
+);

@@ -4,6 +4,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import SideDrawer from './components/SideDrawer/SideDrawer'
@@ -15,7 +16,10 @@ import SubLogin from './components/Login/SubLogin'
 
 const PrimaryLayout = () => {
 
-  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  const dispatch = useDispatch()
+  const counter = useSelector( (state) => state.counter )
+
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false)
   let backdrop;
   const toggleSideDrawer = () => {
     setSideDrawerOpen(!sideDrawerOpen)
@@ -41,7 +45,7 @@ return (
     <main className="entry-content">
       <Switch>
         <Route path="/" exact >
-          <SubHome />
+          <SubHome  />
         </Route>
         <Route path="/login">
           <SubLogin />
