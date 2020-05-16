@@ -3,6 +3,7 @@ const validateAccountEmitter = new EventEmitter()
 const { conn } = require('../dbh')
 
 const accountValidation = (req, res) => {
+    
     const verifyLink = (callback) => {
         const verificationLink = { verification_link: req.params.registrationLink }
         conn.query("SELECT user_id, verification_link FROM pending_registrations WHERE ? AND created_at >= DATE_SUB(NOW(), INTERVAL 48 HOUR) AND deleted_at IS NULL", verificationLink, (err, results, fields) => {
@@ -21,7 +22,7 @@ const accountValidation = (req, res) => {
         })
     }
     const validateAccount = (req, res, userId) => {
-        conn.query("UPDATE users SET verified_at = NOW() WHERE id = ?", [userId], (err, results, fields) => {
+        conn.query("UPDATE users SET verified_at = CURRENT_TIMESTAMP() WHERE id = ?", [userId], (err, results, fields) => {
             if (err) {
                 console.log(err)
                 //http service unavailable
@@ -36,7 +37,7 @@ const accountValidation = (req, res) => {
 }
 
 const destroyValidatedLink = (req, res, userId) => {
-    conn.query("UPDATE pending_registrations SET deleted_at = NOW() WHERE user_id = ?", [userId], (err, results, fields) => {
+    conn.query("UPDATE pending_registrations SET deleted_at = CURRENT_TIMESTAMP() WHERE user_id = ?", [userId], (err, results, fields) => {
         if (err) {
             console.log(err)
             //http service unavailable

@@ -9,7 +9,7 @@ const registrationMail = (req, link) => {
         from: 'services@localpathcomputing.com',
         subject: 'Verify your Go Do account',
         text: 'and easy to do anywhere, even with Node.js',
-        html: `<strong>Please click the link below to validate your account!</strong><br><br>Link expires in 48-hours<br><br>Link: ${process.env.REACT_HOST || process.env.PROD_HOST}/validate-account/${link}`,
+        html: `<strong>Please click the link below to validate your account!</strong><br><br>Link expires in 48-hours<br><br>Link: ${process.env.NODE_HOST || process.env.PROD_HOST}/validate-account/${link}`,
     }
 
     sgMail.send(msg)
