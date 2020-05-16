@@ -2,6 +2,7 @@ const express = require('express')
 const session = require('express-session')
 const path = require('path')
 const app = express()
+const { index } = require('./api/index')
 const { sessionStore } = require('./api/middleware/session')
 const { sessionProtect } = require('./api/middleware/sessionProtect')
 const { login } = require('./api/auth/login')
@@ -35,6 +36,6 @@ app.post('/api/list', listsController)
 
 //@RESTful routes
 
-app.get('/*', (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
+app.get('/*', index)
 
 app.listen(NODE_PORT || 8080, () => console.log(`Server listening on port ${NODE_PORT || 8080}`))
