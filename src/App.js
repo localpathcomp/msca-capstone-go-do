@@ -1,20 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Route,
   Switch
-} from 'react-router-dom';
-import './App.css';
+} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
+import allActions from './actions/index'
+import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import SideDrawer from './components/SideDrawer/SideDrawer'
+import Footer from './components/Footer/Footer'
 import Backdrop from './components/Backdrop/Backdrop'
-import Home from './components/Home/Home'
-import Register from './components/Register/Register'
+import SubHome from './components/Home/SubHome'
+import SubRegister from './components/Register/SubRegister'
+import SubLogin from './components/Login/SubLogin'
 
 const PrimaryLayout = () => {
-
-  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  //@dev
+  /* const currentUser = useSelector(state => state.currentUser)
+  console.log(currentUser) */
+  /* const currentJwt = useSelector(state => state.jwt)
+  console.log(currentJwt)
+  const currentCSRF = useSelector(state => state.csrf)
+  console.log(currentCSRF) */
+  //@dev
+  const [sessionProtect, setSessionProtect] = useState(false)
+  const [appError, setAppError] = useState('')
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false)
+  const dispatch = useDispatch()
   let backdrop;
+  const logOut = () => {
+    dispatch(allActions.userActions.logOut())
+    dispatch(allActions.jwtActions.destroyToken())
+  }
   const toggleSideDrawer = () => {
     setSideDrawerOpen(!sideDrawerOpen)
   }
@@ -24,34 +43,54 @@ const PrimaryLayout = () => {
   if (sideDrawerOpen) {
     backdrop = <Backdrop click={toggleBackdrop} />
   }
-  useEffect(() => {
-    fetch('/api/session/retrieve')
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }, [])
+
+    axios.get('/api/session/protect')
+      .then(response => {      
+      if (response.status === 200) {
+          setSessionProtect(true)
+        const csrfToken = response.data.csrfToken
+        console.log(csrfToken);
+        
+          dispatch(allActions.csrfActions.setCSRFToken(csrfToken))
+      }
+    })
+      .catch(error => {
+      if (error.response.status === 500) {
+          setAppError('Services are temporarily disabled. Please try again later.')
+        } else if (error.response.status) {
+          setAppError(error.response.data)
+      } else {
+        setAppError('Please contact support. Error code: react failure')
+      }
+    })
+
   
   
 return (
   <div className="primary-layout">
-    <Navbar sideDrawerClickHandler={ toggleSideDrawer } />
-    <SideDrawer show={sideDrawerOpen} click={toggleSideDrawer}/>
+    <Navbar sideDrawerClickHandler={ toggleSideDrawer } logoutClickHandler={logOut} appErr={appError} />
+    <SideDrawer show={sideDrawerOpen} sideDrawerClickHandler={toggleSideDrawer} logoutClickHandler={logOut} />
     { backdrop }
     <main className="entry-content">
       <Switch>
         <Route path="/" exact >
-          <Home />
+          <SubHome  />
         </Route>
-        <Route path="/login" component={LoginPage} />
+        <Route path="/login">
+          <SubLogin />
+        </Route>
         <Route path="/register">
-          <Register loggedIn={ false } />
-        </Route>/>
+          <SubRegister />
+        </Route>
+        <Route path="*">
+          <SubHome />
+        </Route>
       </Switch>
     </main>
+    <Footer />
   </div>
 )
 }
-
-const LoginPage = () => <div>Login Page</div>
 
 const App = () => (
   <Router>

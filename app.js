@@ -2,19 +2,15 @@ const express = require('express')
 const session = require('express-session')
 const path = require('path')
 const app = express()
-const MySQLStore = require('express-mysql-session')(session)
-const options = {
-    host: process.env.DB_HOST,
-    port: 3306,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.SESSION_DB_NAME
-}
-const sessionStore = new MySQLStore(options)
-const PORT = process.env.PORT
-
+const { sessionStore } = require('./api/middleware/session')
+const { sessionProtect } = require('./api/middleware/sessionProtect')
 const { login } = require('./api/auth/login')
 const { register } = require('./api/auth/register')
+const { accountValidation } = require('./api/auth/accountValidation')
+const { jwt } = require('./api/middleware/jwt')
+const { listsController } = require('./api/controller/listsController')
+
+const NODE_PORT = process.env.PORT
 
 app.use(express.static(path.join(__dirname, 'build')))
 app.use(express.json())
@@ -27,23 +23,19 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.get('/api/session/protect', sessionProtect)
+
 app.post('/login', login)
-
 app.post('/register', register)
+app.get('/validate-account/:registrationLink', accountValidation)
+app.post('/api/token', jwt)
 
-app.get('/test', (req, res) => res.status(200).send('hello'))
-app.get('/api/session/retrieve', (req, res) => {
-    req.session.loggedin = true
-    res.status(200).send(JSON.stringify({ response: 'works' }))
-})
-app.get('/api/session/check', (req, res) => {   
-    res.send(JSON.stringify({response: req.session}))
-})
-app.get('/api/session/logout', (req, res) => {
-    req.session.loggedin = false
-    res.status(200).send(JSON.stringify({ response: 'logged out'}))
-})
+//@RESTful routes
+app.post('/api/list', listsController)
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
+//@RESTful routes
 
-app.listen(PORT || 8080, () => console.log(`Server listening on port ${PORT || 8080}`))
+app.get('/*', (req, res) => res.status(200).redirect('http://localhost:3000'))
+//app.get('/*', (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
+
+app.listen(NODE_PORT || 8080, () => console.log(`Server listening on port ${NODE_PORT || 8080}`))

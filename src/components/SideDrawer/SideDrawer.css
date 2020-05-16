@@ -18,6 +18,7 @@
 }
 .side-drawer ul {
     margin-top: 60px;
+    padding-left: 40px;
     height: 100%;
     list-style: none;
     display: flex;

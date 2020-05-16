@@ -20,18 +20,24 @@ return (
                 <AppVersion />
             </div>
             <div className="side-drawer-logo">
-                <Link to="/" onClick={ props.click }>GoDo</Link>
+                <Link to="/" onClick={ props.sideDrawerClickHandler }>GoDo</Link>
             </div>            
         </div>
         <ul>
             <li>
-                <Link to="/register" onClick={ props.click }>Create Account</Link>
+                <Link to="/list" onClick={ props.sideDrawerClickHandler }>New List</Link>
             </li>
             <li>
-                <Link to="/login" onClick={ props.click }>Login</Link>
+                <Link to="/register" onClick={ props.sideDrawerClickHandler }>Create Account</Link>
             </li>
             <li>
-                <Link to="/forgot-password" onClick={ props.click }>Forgot Password</Link>
+                <Link to="/forgot-password" onClick={ props.sideDrawerClickHandler }>Forgot Password</Link>
+            </li>
+            <li>
+                <Link to="/login" onClick={ props.sideDrawerClickHandler }>Login</Link>
+            </li>
+            <li>
+                <Link onClick={() => { props.logoutClickHandler(); props.sideDrawerClickHandler(); }} to="/">Logout</Link>
             </li>
         </ul>
         <div className="side-bar-footer">
