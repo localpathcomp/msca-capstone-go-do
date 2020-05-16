@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton'
 import AppVersion from '../AppVersion/AppVersion'
@@ -18,16 +18,23 @@ const Navbar = props => (
             <div className="navbar-nav-items">
                 <ul>
                     <li>
+                        <Link to="/list">New List</Link>
+                    </li>
+                    <li>
                         <Link to="/register">Create Account</Link>
                     </li>
                     <li>
                         <Link to="/login">Login</Link>
+                    </li>
+                    <li>
+                        <Link onClick={props.logoutClickHandler} to="/">Logout</Link>
                     </li>
                 </ul>
             </div>
             <div>
                 <DrawerToggleButton click={ props.sideDrawerClickHandler } />
             </div>
+            {(props.appErr === '' || props.appErr === undefined) ? null : <div className="app-error"><p>{props.appErr}</p></div>}
         </nav>
     </header>
 )

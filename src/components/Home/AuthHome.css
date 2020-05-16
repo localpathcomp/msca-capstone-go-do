@@ -1,0 +1,8 @@
+.account-wrapper {
+    background: #f5f5f5;
+    height: 100vh;
+}
+
+.profile-task-wrapper {
+    flex-basis: 35%;
+}

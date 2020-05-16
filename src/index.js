@@ -24,7 +24,7 @@ ReactDOM.render(
 );
 WebFont.load({
   google: {
-    families: ['Leckerli One:400', 'cursive']
+    families: ['Leckerli One:400', 'cursive','Raleway:300,600', 'sans-serif']
   }
 })
 // If you want your app to work offline and load faster, you can change

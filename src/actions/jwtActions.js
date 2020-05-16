@@ -5,6 +5,13 @@ const setToken = (tokenObj) => {
     }
 }
 
+const destroyToken = (tokenObj) => {
+    return {
+        type: "DESTROY_TOKEN"
+    }
+}
+
 export default {
-    setToken
+    setToken,
+    destroyToken
 }

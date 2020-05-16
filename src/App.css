@@ -11,6 +11,25 @@ main {
 *, ::after, ::before {
     box-sizing: border-box;
 }
+h1,
+h2,
+h3 {
+    font-family: 'Raleway', sans-serif;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.flex-grid {
+    display: flex;
+}
+.col {
+    flex: 1;
+}
+.d-flex {
+    display: flex;
+}
 button, input, optgroup, select, textarea {
     margin: 0;
     font-family: inherit;
@@ -19,7 +38,7 @@ button, input, optgroup, select, textarea {
 }
 label {
     display: inline-block;
-    margin-bottom: .5rem;
+    width: 100%;
 }
 .form-control {
     display: block;
@@ -33,7 +52,10 @@ label {
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid #ced4da;
-    border-radius: .25rem;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 0;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 .form-control:focus {
@@ -46,3 +68,45 @@ label {
 .form-group {
     margin-bottom: 1rem;
 }
+.theme-button {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    background: #ff6584;
+    color: #fff;
+    width: 100%;
+    max-width: 240px;
+    max-height: 65px;
+    line-height: 1rem;
+    padding: 1.25rem 0;
+    margin: 0.75rem 0 0 0;
+    border-radius: 2px;
+    border-color: #ff6584;
+}
+.theme-button:hover,
+.theme-button:focus {
+    background: #c24e66;
+}
+.app-error {
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 999;
+}
+.app-error p {
+    background: #fff;
+    color: red;
+    font-weight: 500;
+    display: inline-block;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 1px 0 5px rgba(0,0,0,0.2);
+}
+@media (max-width: 767px) {
+    .flex-grid {
+      display: flex;
+      flex-direction: column;
+    }
+  }

@@ -3,14 +3,19 @@ import {
     Route,
     useRouteMatch,
     Switch
-} from 'react-router-dom';
+} from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import AuthHome from '../Home/AuthHome'
 import Login from './Login'
 
-const SubLogin = props => {
+const SubLogin = () => {
+
+    const { loggedIn } = useSelector(state => state.currentUser)
+
     let match = useRouteMatch()
- return props.loggedIn ?  (
+
+ return loggedIn ?  (
     <div>
          <Switch>
             <Route path={`${match.path}`}>

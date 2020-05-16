@@ -5,6 +5,10 @@ const jwt = (state = {}, action) => {
                 ...state,
                 token: action.payload
             }
+        case "DESTROY_TOKEN":
+            return {
+                state: undefined
+            }
         default:
             return state
     }

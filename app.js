@@ -3,10 +3,12 @@ const session = require('express-session')
 const path = require('path')
 const app = express()
 const { sessionStore } = require('./api/middleware/session')
+const { sessionProtect } = require('./api/middleware/sessionProtect')
 const { login } = require('./api/auth/login')
 const { register } = require('./api/auth/register')
 const { accountValidation } = require('./api/auth/accountValidation')
 const { jwt } = require('./api/middleware/jwt')
+const { listsController } = require('./api/controller/listsController')
 
 const NODE_PORT = process.env.PORT
 
@@ -21,14 +23,18 @@ app.use(session({
     saveUninitialized: true
 }))
 
-app.get('/api/session/retrieve', (req, res) => {
-    res.status(200).json({ message: 'ok' })
-})
+app.get('/api/session/protect', sessionProtect)
 
 app.post('/login', login)
 app.post('/register', register)
 app.get('/validate-account/:registrationLink', accountValidation)
 app.post('/api/token', jwt)
+
+//@RESTful routes
+app.post('/api/list', listsController)
+
+//@RESTful routes
+
 app.get('/*', (req, res) => res.status(200).redirect('http://localhost:3000'))
 //app.get('/*', (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
 

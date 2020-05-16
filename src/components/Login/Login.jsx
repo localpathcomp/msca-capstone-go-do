@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import allActions from '../../actions/index'
 import axios from 'axios'
 
@@ -12,14 +11,11 @@ const Login = props => {
     const [inputError, setInputError] = useState(null)
     const [loginForm, setLoginForm] = useState({})
     
-    
     const dispatch = useDispatch()
 
     const loginSuccess = (data) => {
         dispatch(allActions.jwtActions.setToken(data))
-               
-        //document.querySelector('form').reset()
-        //props.history.push('/')
+        dispatch(allActions.userActions.setUser({ email: loginForm.email }))
     }
 
     const handleInputChange = e => {
@@ -49,7 +45,8 @@ const Login = props => {
           })
           .then(response => {
               if (response.status === 200) {
-                  loginSuccess(response.data)
+                document.querySelector('form').reset()
+                loginSuccess(response.data)
             }
           })
             .catch(error => {
@@ -93,4 +90,4 @@ const Login = props => {
         )
 }
 
-export default withRouter(Login)
+export default Login
