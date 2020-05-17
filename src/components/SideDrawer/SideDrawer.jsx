@@ -27,18 +27,26 @@ return (
             <li>
                 <Link to="/list" onClick={ props.sideDrawerClickHandler }>New List</Link>
             </li>
-            <li>
-                <Link to="/register" onClick={ props.sideDrawerClickHandler }>Create Account</Link>
-            </li>
-            <li>
-                <Link to="/forgot-password" onClick={ props.sideDrawerClickHandler }>Forgot Password</Link>
-            </li>
-            <li>
-                <Link to="/login" onClick={ props.sideDrawerClickHandler }>Login</Link>
-            </li>
-            <li>
-                <Link onClick={() => { props.logoutClickHandler(); props.sideDrawerClickHandler(); }} to="/">Logout</Link>
-            </li>
+            {(props.loggedIn) ? null :
+                <li>
+                    <Link to="/register" onClick={props.sideDrawerClickHandler}>Create Account</Link>
+                </li>
+            }
+            {(props.loggedIn) ? null :
+                <li>
+                    <Link to="/forgot-password" onClick={props.sideDrawerClickHandler}>Forgot Password</Link>
+                </li>
+            }
+            {(props.loggedIn) ? null :
+                <li>
+                    <Link to="/login" onClick={props.sideDrawerClickHandler}>Login</Link>
+                </li>
+            }
+            {(!props.loggedIn) ? null :
+                <li>
+                    <Link onClick={() => { props.logoutClickHandler(); props.sideDrawerClickHandler(); }} to="/">Logout</Link>
+                </li>
+            }
         </ul>
         <div className="side-bar-footer">
             <Copyright />

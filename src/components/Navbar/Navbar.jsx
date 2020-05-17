@@ -20,15 +20,21 @@ const Navbar = props => (
                     <li>
                         <Link to="/list">New List</Link>
                     </li>
+                    { (props.loggedIn) ? null :
                     <li>
                         <Link to="/register">Create Account</Link>
-                    </li>
-                    <li>
-                        <Link to="/login">Login</Link>
-                    </li>
-                    <li>
-                        <Link onClick={props.logoutClickHandler} to="/">Logout</Link>
-                    </li>
+                        </li>
+                    }
+                    {(props.loggedIn) ? null :
+                        <li>
+                            <Link to="/login">Login</Link>
+                        </li>
+                    }
+                    {(!props.loggedIn) ? null :
+                        <li>
+                            <Link onClick={props.logoutClickHandler} to="/">Logout</Link>
+                        </li>
+                    }
                 </ul>
             </div>
             <div>

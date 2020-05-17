@@ -21,6 +21,7 @@ const PrimaryLayout = () => {
   const [sessionProtect, setSessionProtect] = useState(false)
   const [appError, setAppError] = useState('')
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false)
+  const { loggedIn } = useSelector(state => state.currentUser)
   const dispatch = useDispatch()
   let backdrop;
   const logOut = () => {
@@ -59,8 +60,8 @@ const PrimaryLayout = () => {
   
 return (
   <div className="primary-layout">
-    <Navbar sideDrawerClickHandler={ toggleSideDrawer } logoutClickHandler={logOut} appErr={appError} />
-    <SideDrawer show={sideDrawerOpen} sideDrawerClickHandler={toggleSideDrawer} logoutClickHandler={logOut} />
+    <Navbar sideDrawerClickHandler={toggleSideDrawer} logoutClickHandler={logOut} appErr={appError} loggedIn={loggedIn} />
+    <SideDrawer show={sideDrawerOpen} sideDrawerClickHandler={toggleSideDrawer} logoutClickHandler={logOut} loggedIn={loggedIn} />
     { backdrop }
     <main className="entry-content">
       <Switch>
