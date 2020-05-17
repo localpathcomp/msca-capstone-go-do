@@ -5,11 +5,11 @@ const app = express()
 const { index } = require('./api/index')
 const { sessionStore } = require('./api/middleware/session')
 const { sessionProtect } = require('./api/middleware/sessionProtect')
+const { sessionVerify } = require('./api/middleware/sessionVerify')
 const { login } = require('./api/auth/login')
 const { register } = require('./api/auth/register')
 const { accountValidation } = require('./api/auth/accountValidation')
-const { jwt } = require('./api/middleware/jwt')
-const { listsController } = require('./api/controller/listsController')
+const listsController = require('./api/controller/listsController')
 
 const NODE_PORT = process.env.PORT
 
@@ -26,13 +26,12 @@ app.use(session({
 
 app.get('/api/session/protect', sessionProtect)
 
-app.post('/login', login)
-app.post('/register', register)
+app.post('/login', sessionVerify, login)
+app.post('/register', sessionVerify, register)
 app.get('/validate-account/:registrationLink', accountValidation)
-app.post('/api/token', jwt)
 
-//@RESTful routes
-app.post('/api/list', listsController)
+//@RESTful routes, require auth
+app.use('/api/list', listsController)
 
 //@RESTful routes
 

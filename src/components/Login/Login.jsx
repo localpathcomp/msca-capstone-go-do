@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import allActions from '../../actions/index'
 import axios from 'axios'
 
@@ -10,12 +10,12 @@ const Login = props => {
     const [disable, setDisabled] = useState(false)
     const [inputError, setInputError] = useState(null)
     const [loginForm, setLoginForm] = useState({})
-    
+    const csrf = useSelector(state => state.csrf)
     const dispatch = useDispatch()
 
     const loginSuccess = (data) => {
         dispatch(allActions.jwtActions.setToken(data))
-        dispatch(allActions.userActions.setUser({ email: loginForm.email }))
+        dispatch(allActions.userActions.setUser({ email: loginForm.email }))        
     }
 
     const handleInputChange = e => {
@@ -42,6 +42,10 @@ const Login = props => {
         axios.post('/login', {
             email: loginForm.email,
             password: loginForm.password
+          },{
+            headers: {
+                    'CSRF-TOKEN': JSON.stringify(csrf.csrfToken)
+                } 
           })
           .then(response => {
               if (response.status === 200) {

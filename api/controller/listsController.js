@@ -1,16 +1,18 @@
+const express = require('express')
+const router = express.Router()
+router.use(express.urlencoded({ extended: true }))
+router.use(express.json())
+
 const { list } = require('../model/list')
 const { item } = require('../model/item')
 const { sessionVerify } = require('../middleware/sessionVerify')
+const { jwtVerify } = require('../middleware/jwtVerify')
 
-const listsController = (req, res) => {
+router.post('/', jwtVerify, (req, res) => {
 
-    if (!sessionVerify(req)) {
-        res.status(401).send('csrf error')
-        return
-    } else {
-        console.log(req.headers['csrf-token'], req.body);
-        res.status(200).send('ok')
-    }
-}
+    console.log(req.body, req.headers);
+    res.status(200).send('ok')
+})
 
-module.exports = { listsController}
+
+module.exports = router

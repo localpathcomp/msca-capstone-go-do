@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { withRouter } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
 
 import './Register.css'
@@ -10,6 +11,7 @@ const Register = props => {
     const [disable, setDisabled] = useState(true)
     const [inputError, setInputError] = useState(null)
     const [registrationForm, setRegistrationForm] = useState({})
+    const csrf = useSelector(state => state.csrf)
 
     const handleInputChange = e => {
         const { name, value } = e.target
@@ -51,6 +53,10 @@ const Register = props => {
             firstName: registrationForm.firstName,
             email: registrationForm.email,
             password: registrationForm.password
+          },{
+            headers: {
+                    'CSRF-TOKEN': JSON.stringify(csrf.csrfToken)
+                } 
           })
           .then(response => {
               if (response.status === 201) {

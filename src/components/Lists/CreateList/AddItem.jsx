@@ -11,21 +11,20 @@ const AddItem = props => {
     const [id] = useState(nanoid)
     const jwt = useSelector(state => state.jwt)
     const csrf = useSelector(state => state.csrf)
-    const {refreshToken, tokenExpires, userEmail, userId, userName, webToken} = jwt.token
-    console.log(jwt.token);
-    console.log(csrf);
-    
+       
     const handleInputChange = (e, stateType) => {
         const { name, value } = e.target
         setItem({ ...stateType, [name]: value })
     }
     const saveItemToList = () => {
-        console.log(item);
-        console.log(refreshToken, tokenExpires, userEmail, userId, userName, webToken);
-        itemSave()
+        console.log(jwt.token);
+        
+        const jwtJSON = JSON.stringify(jwt.token.token)
+        //const jwtHeader = Buffer.from(jwtJSON, 'utf8').toString('base64')
+        itemSave(jwtJSON)
     }
 
-    const itemSave = () => {
+    const itemSave = (jwtHeader) => {
         console.log(item);
         axios.post('/api/list', {
             listId: props.listId,
@@ -35,7 +34,7 @@ const AddItem = props => {
             },
             {
             headers: {
-                    'X-WEB-TOKEN': JSON.stringify(jwt.token),
+                    'X-ACCESS-TOKEN': jwtHeader,
                     'CSRF-TOKEN': JSON.stringify(csrf.csrfToken)
                 } 
           })

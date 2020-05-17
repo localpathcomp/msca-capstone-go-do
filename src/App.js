@@ -17,14 +17,7 @@ import SubRegister from './components/Register/SubRegister'
 import SubLogin from './components/Login/SubLogin'
 
 const PrimaryLayout = () => {
-  //@dev
-  /* const currentUser = useSelector(state => state.currentUser)
-  console.log(currentUser) */
-  /* const currentJwt = useSelector(state => state.jwt)
-  console.log(currentJwt)
-  const currentCSRF = useSelector(state => state.csrf)
-  console.log(currentCSRF) */
-  //@dev
+  
   const [sessionProtect, setSessionProtect] = useState(false)
   const [appError, setAppError] = useState('')
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false)
@@ -49,9 +42,7 @@ const PrimaryLayout = () => {
       if (response.status === 200) {
           setSessionProtect(true)
         const csrfToken = response.data.csrfToken
-        console.log(csrfToken);
-        
-          dispatch(allActions.csrfActions.setCSRFToken(csrfToken))
+        dispatch(allActions.csrfActions.setCSRFToken(csrfToken))
       }
     })
       .catch(error => {
