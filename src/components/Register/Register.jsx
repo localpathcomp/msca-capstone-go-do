@@ -55,7 +55,7 @@ const Register = props => {
             password: registrationForm.password
           },{
             headers: {
-                    'CSRF-TOKEN': JSON.stringify(csrf.csrfToken)
+                    'CSRF-TOKEN': csrf.csrfToken
                 } 
           })
           .then(response => {
