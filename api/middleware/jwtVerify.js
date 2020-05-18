@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const jwtVerify = (req, res, next) => {
     
-    const token = JSON.parse(req.headers['x-access-token'])
+    const token = req.headers['x-access-token']
     
     if (!token) 
         return res.status(403).send({ auth: false, message: 'No token provided.' })
@@ -10,7 +10,8 @@ const jwtVerify = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {      
         if (err) 
             return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' })
-            req.userId = decoded.id;
+        
+            req.userId = decoded.userId;
             next()
     })
 

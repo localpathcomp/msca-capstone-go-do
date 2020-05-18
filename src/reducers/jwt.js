@@ -14,4 +14,4 @@ const jwt = (state = {}, action) => {
     }
 }
 
-export default jwt;
+export default jwt

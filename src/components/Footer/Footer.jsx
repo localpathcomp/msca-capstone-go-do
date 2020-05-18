@@ -17,7 +17,7 @@ const Footer = props => (
         <div className="copyright">
             <Copyright />
         </div>
-        </footer>
+    </footer>
 )
 
 export default Footer

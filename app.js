@@ -10,6 +10,7 @@ const { login } = require('./api/auth/login')
 const { register } = require('./api/auth/register')
 const { accountValidation } = require('./api/auth/accountValidation')
 const listsController = require('./api/controller/listsController')
+const itemsController = require('./api/controller/itemsController')
 
 const NODE_PORT = process.env.PORT
 
@@ -31,8 +32,8 @@ app.post('/register', sessionVerify, register)
 app.get('/validate-account/:registrationLink', accountValidation)
 
 //@RESTful routes, require auth
-app.use('/api/list', listsController)
-
+app.use('/api/list', sessionVerify, listsController)
+app.use('/api/item', sessionVerify, itemsController)
 //@RESTful routes
 
 app.get('/*', index)

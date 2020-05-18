@@ -1,62 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import allActions from '../../../actions/index'
+import React, { useState, useEffect } from 'react'
 import { nanoid } from 'nanoid'
-import axios from 'axios'
+
+import './AddItem.css'
 
 const AddItem = props => {
 
-    const [inputError, setInputError] = useState(null)
-    const [item, setItem] = useState({})
-    const [id] = useState(nanoid)
-    const jwt = useSelector(state => state.jwt)
-    const csrf = useSelector(state => state.csrf)
-       
+    const [item, setItem] = useState({})//item state
+    const [regenId, setRegenId] = useState(false)//regen guid without component render
+    
     const handleInputChange = (e, stateType) => {
         const { name, value } = e.target
         setItem({ ...stateType, [name]: value })
     }
-    const saveItemToList = () => {
-        console.log(jwt.token);
-        
-        const jwtJSON = JSON.stringify(jwt.token.token)
-        //const jwtHeader = Buffer.from(jwtJSON, 'utf8').toString('base64')
-        itemSave(jwtJSON)
+    const saveItemToList = (e) => {
+        e.preventDefault()
+        document.querySelector('form#addItemForm').reset()
+        props.createItem(e, { listId: props.listId, itemId: item.itemId, itemTitle: item.itemTitle, itemDescription: item.itemDescription })
+        setItem({ itemId: null })
+        setRegenId(!regenId)
     }
-
-    const itemSave = (jwtHeader) => {
-        console.log(item);
-        axios.post('/api/list', {
-            listId: props.listId,
-            itemId: id,
-            itemTitle: item.itemTitle,
-            itemDescription: item.itemDescription
-            },
-            {
-            headers: {
-                    'X-ACCESS-TOKEN': jwtHeader,
-                    'CSRF-TOKEN': JSON.stringify(csrf.csrfToken)
-                } 
-          })
-          .then(response => {
-              if (response.status === 201) {
-                console.log(response);
-              }
-              console.log(response.status);
-              
-          })
-            .catch(error => {
-            if (error.response.status === 500) {
-                  setInputError('Services are temporarily disabled. Please try again later.')
-              } else if (error.response.status) {
-                setInputError(error.response.data)
-            }
-          })
-    }
+    
+    useEffect(() => {
+        let itemId = nanoid()
+        setItem({itemId: itemId})
+    }, [regenId])
 
     return (
         <div className="add-item col">
-            <form>
+            <form id="addItemForm">
                 <div className="form-group">
                     <label>Item Name
                     <input
@@ -77,8 +48,7 @@ const AddItem = props => {
                         name="itemDescription" />
                     </label>
                 </div>
-                { inputError && <p className="login-error">{inputError}</p> }
-                <button className="theme-button" onClick={() => { saveItemToList(); props.click(); }}>Save Item</button>
+                <button className="theme-button-alternate" onClick={ e => saveItemToList(e) }>Save Item</button>
             </form>
         </div>
     )

@@ -8,7 +8,7 @@ const register = (req, res) => {
     const verificationLink = crypto.randomBytes(36)
 
     const createUser = (req) => (passHash) => {
-        const CURRENT_TIMESTAMP = { toSqlString: () => { return 'CURRENT_TIMESTAMP()'; }};
+        const CURRENT_TIMESTAMP = { toSqlString: () => { return 'CURRENT_TIMESTAMP()'; }}
         conn.query("INSERT INTO users SET first_name = ?, email = ?, password = ?, created_at = ?", [req.body.firstName, req.body.email, passHash, CURRENT_TIMESTAMP], (err, results, fields) => {
             if (err) {
                 if (err.code === 'ER_DUP_ENTRY') {

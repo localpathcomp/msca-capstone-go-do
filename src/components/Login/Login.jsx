@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import './Login.css'
 
-const Login = props => {
+const Login = () => {
 
     const [disable, setDisabled] = useState(false)
     const [inputError, setInputError] = useState(null)
@@ -44,7 +44,7 @@ const Login = props => {
             password: loginForm.password
           },{
             headers: {
-                    'CSRF-TOKEN': JSON.stringify(csrf.csrfToken)
+                    'CSRF-TOKEN': csrf.csrfToken
                 } 
           })
           .then(response => {
@@ -54,7 +54,7 @@ const Login = props => {
             }
           })
             .catch(error => {
-            if (error.response.status === 500) {
+            if (error.response.status === 500 || error.response.status === 503) {
                   setInputError('Services are temporarily disabled. Please try again later.')
               } else if (error.response.status) {
                 setInputError(error.response.data)

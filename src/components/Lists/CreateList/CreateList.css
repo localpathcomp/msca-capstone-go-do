@@ -1,6 +1,83 @@
 .create-list-wrapper {
-    background: #fff;
     margin: 30px;
+}
+#createList, #addItemForm {
+    background: #fff;
     padding: 30px;
+    margin-top: 5px;
     border-radius: 5px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+.create-list-grid {
+    flex-direction: column;
+
+}
+.items-list {
+    margin: 30px;
+}
+.add-items-save-items {
+    background: #fff;
+    padding: 0 30px 30px 30px;
+    border-radius: 0 0 5px 5px;
+}
+
+.create-list-intro {
+    text-align: center;
+}
+.create-list-intro p {
+    margin-top: 5px;
+}
+.theme-button-widget {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 27px;
+}
+.theme-button-widget button {
+    position: absolute;
+    left: -20px;
+    color: #3a3a3a;
+    background: transparent;
+    padding: 10px;
+    width: 120px;
+    border-width: 0;
+}
+.theme-button-widget div {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #09d3ac;
+    padding: 25px;
+    border-radius: 50%;
+    box-shadow: -4px 0 5px rgba(0,0,0,0.1);
+    transition: all 0.5s ease-out;
+}
+.theme-button-widget span {
+    position: absolute;
+    color: #fff;
+}
+.theme-button-widget div:hover,
+.theme-button-widget div:focus,
+.theme-button-alternate:hover,
+.theme-button-alternate:focus {
+    background: #02b18e;
+}
+.theme-button-alternate {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    background: #09d3ac;
+    color: #fff;
+    width: 100%;
+    max-width: 240px;
+    max-height: 65px;
+    line-height: 1rem;
+    padding: 1.25rem 0;
+    margin: 0.75rem 0 0 0;
+    border: 0;
+    border-radius: 28px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.2);
+    transition: all 0.5s ease-out;
 }
