@@ -33,6 +33,7 @@ app.get('/validate-account/:registrationLink', accountValidation)
 
 //@RESTful routes, require auth
 app.use('/api/list', sessionVerify, listsController)
+
 app.use('/api/item', sessionVerify, itemsController)
 //@RESTful routes
 

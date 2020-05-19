@@ -1,61 +1,61 @@
 import React, { useState, useEffect } from 'react'
-/* import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios' */
+import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
 import { nanoid } from 'nanoid'
 
-//import AllListsSingle from './AllListsSingle'
+import AllListsSingle from './AllListsSingle'
 import './AllLists.css'
-/* import allActions from '../../../actions/index'
-import { useEffect } from 'react' */
+import allActions from '../../../actions/index'
+
 
 const AllLists = () => {
 
-    /* const [appError, setAppError] = useState(null)
+    const [allListsResponse, setAllListsResponse] = useState(false)
+    const [id] = useState(nanoid)
     const dispatch = useDispatch()
     const jwt = useSelector(state => state.jwt)
-    const csrf = useSelector(state => state.csrf) */
+    const csrf = useSelector(state => state.csrf)
+    if (allListsResponse)
+        console.log(allListsResponse.data.results[0]);
     
-
-    /* const fetchAllLists = () => {
-        axios.get('/api/list',
-            {
-            headers: {
-                    'X-ACCESS-TOKEN': jwt.token.token,
-                    'CSRF-TOKEN': csrf.csrfToken
-                } 
-          })
-          .then(response => {
-              if (response.status === 200) {
-                  //listsArray = response.data
-              }              
-          })
-            .catch(error => {
-            if (error.response.status === 500) {
-                  setAppError('Services are temporarily disabled. Please try again later.')
-              } else if (error.response.status === 403) {
-                setAppError('Please reload your browser or try logging out and back in.')
-            }  else {
-                setAppError('There\'s been an error. Please contact support.')
-            }
-          })
-    } */
-    //fetchAllLists()
-    const [id] = useState(nanoid)
-    let listsArray = [1, 2, 3]
+        const fetchAllLists = () => {
+            axios.get('/api/list',
+                {
+                headers: {
+                        'X-ACCESS-TOKEN': jwt.token.token,
+                        'CSRF-TOKEN': csrf.csrfToken
+                    } 
+              })
+              .then(response => {
+                  if (response.status === 200) {
+                      setAllListsResponse({response: true, data: response.data })                  
+                  }              
+              })
+                .catch(error => {
+                if (error.response.status === 500) {
+                    dispatch(allActions.appErrorActions.setAppError('Services are temporarily disabled. Please try again later.'))
+                } else if (error.response.status === 403) {
+                    dispatch(allActions.appErrorActions.setAppError('Please reload your browser or try logging out and back in.'))
+                } else {
+                    dispatch(allActions.appErrorActions.setAppError('There\'s been an error. Please contact support.'))
+                }
+              })
+        }    
 
     return (
         <div className="all-lists col">
-            <ul id="allLists">
-                {listsArray.map((el, idx) => {
-                    let keyId = id + idx
-                    return (
-                        <li key={keyId}>
-                            <div>List Name</div>
-                            <div className="all-lists-count"><span>11</span></div>
-                        </li>
-                    )
-                })}
-            </ul>
+            {<ul id="allLists">
+                {  (allListsResponse.response === true) ?
+                    allListsResponse.data.results.map((el, idx) => {
+                        let keyId = id + idx
+                        return (
+                            <AllListsSingle key={keyId.toString()} data={el} jwt={jwt.token.token} csrf={csrf.csrfToken}/>
+                        )
+                    })
+                : null
+                }
+            </ul>}
+            <button onClick={fetchAllLists}>Get Lists</button>
         </div>
     )
 }

@@ -5,6 +5,7 @@
     width: 100%;
     height: 56px;
     background: #521751;
+    z-index: 99;
 }
 .navbar-nav {
     display: flex;

@@ -6,10 +6,7 @@ router.use(express.json())
 const list = require('../model/list/list')
 const { jwtVerify } = require('../middleware/jwtVerify')
 
-router.post('/', jwtVerify, (req, res) => {    
-
-    list.create(req, res, req.body)
-
-})
+router.get('/', jwtVerify, (req, res) => list.index(req, res))//@index, all lists
+router.post('/', jwtVerify, (req, res) => list.create(req, res, req.body))//@create, single list
 
 module.exports = router
