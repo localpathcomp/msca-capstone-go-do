@@ -1,28 +1,31 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# msca-capstone-go-do
+This project is a web based application focused on to-do lists. Users can sign up for an account and create lists with items. The app is free to use. For people who do not want to register and only use the to-do list functionality they can create one list with a 48-hour expiration (due to database constraints, free lists will be deleted permanently). Future releases will include the ability to share lists between registered users as well as live editing and deletion of lists.
+
 ## Things you'll need
 1. mySQL or MariaDB Server **(production only)** *recommended v5.6 for production mySQL*
-    -[MariaDB](https://mariadb.org/)
-    -[mySQL](https://www.mysql.com/)
+  *[MariaDB](https://mariadb.org/)
+  *[mySQL](https://www.mysql.com/)
 2. Node *^v12.0*
-    -[Node.js](https://nodejs.org/en/)
+  *[Node.js](https://nodejs.org/en/)
 3. NPM *^v6.0*
-    -*included with Node*
-    -[Node Package Manager](https://www.npmjs.com/get-npm)
+  **included with Node*
+  *[Node Package Manager](https://www.npmjs.com/get-npm)
 4. Sendgrid API key
-    -[Send Grid Site](https://sendgrid.com/)
+  *-[Send Grid Site](https://sendgrid.com/)
 5. XAMPP **(development only)** *includes latest stable MariaDB server*
-    -[XAMPP](https://www.apachefriends.org/index.html)
+  *-[XAMPP](https://www.apachefriends.org/index.html)
 
 ## Getting started
 
 1. Clone this repo to your machine
 2. run `npm install`
 3. Create a `.env` file at your document root
-    -You'll want to add the contents of `.env.example` and modify to your environment
-    -run `source.env`
+  *You'll want to add the contents of `.env.example` and modify to your environment
+  *run `source.env`
 4. Log in to your mySQL server
-    -Run `init.sql`
+  *Run `init.sql`
 
 ## Available Scripts
 
@@ -96,4 +99,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-# msca-capstone-go-do

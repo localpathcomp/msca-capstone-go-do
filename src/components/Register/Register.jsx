@@ -111,7 +111,7 @@ const Register = props => {
                         name="password" />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="passwordVerify">Password Verify</label>
+                    <label htmlFor="passwordVerify">Repeat Password</label>
                     <input
                         onChange={handleInputChange}
                         id="passwordVerify"
