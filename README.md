@@ -1,16 +1,46 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Things you'll need
+1. mySQL or MariaDB Server **(production only)** *recommended v5.6 for production mySQL*
+    -[MariaDB](https://mariadb.org/)
+    -[mySQL](https://www.mysql.com/)
+2. Node *^v12.0*
+    -[Node.js](https://nodejs.org/en/)
+3. NPM *^v6.0*
+    -*included with Node*
+    -[Node Package Manager](https://www.npmjs.com/get-npm)
+4. Sendgrid API key
+    -[Send Grid Site](https://sendgrid.com/)
+5. XAMPP **(development only)** *includes latest stable MariaDB server*
+    -[XAMPP](https://www.apachefriends.org/index.html)
+
+## Getting started
+
+1. Clone this repo to your machine
+2. run `npm install`
+3. Create a `.env` file at your document root
+    -You'll want to add the contents of `.env.example` and modify to your environment
+    -run `source.env`
+4. Log in to your mySQL server
+    -Run `init.sql`
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `node app.js`
+
+Runs the express server.<br />
+Runs at [http://localhost:8080](http://localhost:8080) this is wher your API lives.
+
+### `npm run dev`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+**This app is using a proxy. Your server will run on port 8080 and React will proxy all calls to that port.**
 
 ### `npm test`
 
