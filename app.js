@@ -33,7 +33,7 @@ app.get('/api/session/protect', sessionProtect)
 app.post('/login', sessionVerify, login)
 app.post('/register', sessionVerify, register)
 app.get('/validate-account/:registrationLink', accountValidation)
-app.get('/reset-password/:validationLink', resetPasswordValidation)
+app.get('/reset-password-verify/:validationLink', resetPasswordValidation)
 app.post('/reset-password', sessionVerify, resetPassword)
 app.post('/forgot-password', sessionVerify, forgotPassword)
 
