@@ -1,3 +1,4 @@
+const path = require('path')
 const { conn } = require('../dbh')
 
 const resetPasswordValidation = (req, res) => {    
@@ -13,8 +14,12 @@ const resetPasswordValidation = (req, res) => {
                 //http no link found
                 res.status(404).send('Your link has expired! Please submit a new account verification!')
                 return
-            } else if (results) {
-                res.status(200).redirect(`${(process.env.REACT_HOST) ? process.env.REACT_HOST : ''}/reset-password/${req.params.validationLink}`)
+            } else if (results) {                
+                if (process.env.REACT_HOST)
+                    return res.status(200).redirect(`${(process.env.REACT_HOST) ? process.env.REACT_HOST : ''}?reset-password=${req.params.validationLink}`)
+                //res.status(200).redirect(`${(process.env.REACT_HOST) ? process.env.REACT_HOST : ''}/reset-password/${req.params.validationLink}`)
+                
+                return res.status(200).redirect(`https://go-do.herokuapp.com/?reset-password=${req.params.validationLink}`)
             }
         })
 }

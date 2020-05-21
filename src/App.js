@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
+  useLocation,
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
@@ -17,6 +19,8 @@ import SubRegister from './components/Register/SubRegister'
 import SubLogin from './components/Login/SubLogin'
 import SubForgotPassword from './components/ForgotPassword/SubForgotPassword'
 import SubResetPassword from './components/ForgotPassword/SubResetPassword'
+
+import PassTest from './components/PassTest'
 
 const PrimaryLayout = () => {
   
@@ -65,7 +69,18 @@ const PrimaryLayout = () => {
         }
       })
   }, [dispatch, errorProtect])
-    
+  function useQuery() {
+    return new URLSearchParams(useLocation().search)
+  }
+  let query = useQuery()
+  console.log(query);
+  
+  let location = useLocation()
+  if (location.search) {
+    return (
+      <Redirect to={`/reset-password/${query.get("reset-password")}`} />
+    )
+  }
   
 return (
   <div className="primary-layout">
@@ -88,6 +103,9 @@ return (
         </Route>
         <Route path="/reset-password">
           <SubResetPassword />
+        </Route>
+        <Route path="/pass-test">
+          <PassTest />
         </Route>
         <Route path="*">
           <SubHome />
