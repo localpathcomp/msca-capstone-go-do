@@ -14,7 +14,6 @@ const AllListsSingle = props => {
             'X-ACCESS-TOKEN': props.jwt,
             'CSRF-TOKEN': props.csrf
         }
-        
     })
     .then(response => {
         if (response.status === 200) {
@@ -24,7 +23,9 @@ const AllListsSingle = props => {
       .catch(error => {
       if (error.response.status === 500) {
           dispatch(allActions.appErrorActions.setAppError('Services are temporarily disabled. Please try again later.'))
-      } else if (error.response.status === 403) {
+      } else if (error.response.status === 404) {
+        setCount('0')
+    } else if (error.response.status === 403) {
           dispatch(allActions.appErrorActions.setAppError('Please reload your browser or try logging out and back in.'))
       } else {
          dispatch(allActions.appErrorActions.setAppError('There\'s been an error. Please contact support.'))

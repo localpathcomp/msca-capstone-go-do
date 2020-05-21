@@ -44,7 +44,7 @@ const destroyValidatedLink = (req, res, userId) => {
             res.status(503).send('There\'s been an error! Please try again or wait for the service to become available!')
             return
         } else if (results) {
-            res.status(200).redirect(`${process.env.REACT_HOST || null}/login`)
+            res.status(200).send('Password reset successfully!')
         }
     })
 }

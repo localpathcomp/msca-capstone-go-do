@@ -30,6 +30,12 @@
 .register-wrapper form button:focus {
     background: #06997c;
 }
+.register-wrapper .register-or a {
+    color: #ff6584;
+}
+.register-or {
+    text-align: center;
+}
 .registration-error {
     text-align: center;
     color: rgb(202, 27, 27);

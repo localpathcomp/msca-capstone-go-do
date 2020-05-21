@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { withRouter } from 'react-router-dom'
+import {
+    withRouter,
+    Link
+} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 
@@ -120,6 +123,10 @@ const Register = props => {
                 { inputError && <p className="registration-error">{inputError}</p> }
                 <div className="form-group">
                     <button type="submit" disabled={disable}>Register</button>
+                </div>
+                <div className="register-or">
+                    <p>Forgot your password?<br></br><Link to="/forgot-password">Go here to reset it</Link></p>
+                    <p>Already have an account?<br></br><Link to="/login">Log in</Link></p>
                 </div>
             </form>
             </div>

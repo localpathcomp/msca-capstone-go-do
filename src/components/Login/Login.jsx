@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import allActions from '../../actions/index'
 import axios from 'axios'
@@ -55,7 +56,7 @@ const Login = () => {
           })
             .catch(error => {
             if (error.response.status === 500 || error.response.status === 503) {
-                  setInputError('Services are temporarily disabled. Please try again later.')
+                setInputError('Services are temporarily disabled. Please try again later.')
               } else if (error.response.status) {
                 setInputError(error.response.data)
             }
@@ -88,6 +89,10 @@ const Login = () => {
                 { inputError && <p className="login-error">{inputError}</p> }
                 <div className="form-group">
                     <button type="submit" disabled={disable}>Login</button>
+                </div>
+                <div className="login-or">
+                    <p>Forgot your password?<br></br><Link to="/forgot-password">Go here to reset it</Link></p>
+                    <p>Don't have an account yet?<br></br><Link to="/register">Register</Link></p>
                 </div>
             </form>
             </div>

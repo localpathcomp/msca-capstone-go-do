@@ -15,6 +15,8 @@ import Backdrop from './components/Backdrop/Backdrop'
 import SubHome from './components/Home/SubHome'
 import SubRegister from './components/Register/SubRegister'
 import SubLogin from './components/Login/SubLogin'
+import SubForgotPassword from './components/ForgotPassword/SubForgotPassword'
+import SubResetPassword from './components/ForgotPassword/SubResetPassword'
 
 const PrimaryLayout = () => {
   
@@ -80,6 +82,12 @@ return (
         </Route>
         <Route path="/register">
           <SubRegister />
+        </Route>
+        <Route path="/forgot-password">
+          <SubForgotPassword />
+        </Route>
+        <Route path="/reset-password">
+          <SubResetPassword />
         </Route>
         <Route path="*">
           <SubHome />

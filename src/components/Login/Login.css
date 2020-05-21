@@ -27,6 +27,12 @@
 .login-wrapper form button:focus {
     background: #06997c;
 }
+.login-wrapper .login-or a {
+    color: #ff6584;
+}
+.login-or {
+    text-align: center;
+}
 .login-error {
     text-align: center;
     color: rgb(202, 27, 27);
