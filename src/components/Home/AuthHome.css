@@ -34,3 +34,8 @@
 .list-added-hiding {
     transform: translateX(-100%);
 }
+@media only screen and (max-width: 767px) {
+    .account-wrapper.flex-grid .col {
+        flex: 0 0 auto;
+    }
+}

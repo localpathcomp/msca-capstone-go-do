@@ -19,6 +19,7 @@ import SubRegister from './components/Register/SubRegister'
 import SubLogin from './components/Login/SubLogin'
 import SubForgotPassword from './components/ForgotPassword/SubForgotPassword'
 import SubResetPassword from './components/ForgotPassword/SubResetPassword'
+import List from './components/Lists/List/List'
 
 import PassTest from './components/PassTest'
 
@@ -29,7 +30,6 @@ const PrimaryLayout = () => {
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false)
   const { loggedIn } = useSelector(state => state.currentUser)
   const appError = useSelector(state => state.appError)
-  console.log(appError);
   
   const dispatch = useDispatch()
   let backdrop;
@@ -69,12 +69,11 @@ const PrimaryLayout = () => {
         }
       })
   }, [dispatch, errorProtect])
+
   function useQuery() {
     return new URLSearchParams(useLocation().search)
   }
   let query = useQuery()
-  console.log(query);
-  
   let location = useLocation()
   if (location.search) {
     return (
@@ -106,6 +105,9 @@ return (
         </Route>
         <Route path="/pass-test">
           <PassTest />
+        </Route>
+        <Route path="/list/:guid/:id">
+          <List />
         </Route>
         <Route path="*">
           <SubHome />

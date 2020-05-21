@@ -1,9 +1,11 @@
 const index = require('./index')
 const create = require('./create')
+const items = require('./items')
 
 const list = {
     index,
-    create
+    create,
+    items
 }
 
 module.exports = list

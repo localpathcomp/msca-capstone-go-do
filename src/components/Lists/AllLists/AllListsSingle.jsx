@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Redirect, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 
@@ -30,10 +31,24 @@ const AllListsSingle = props => {
       } else {
          dispatch(allActions.appErrorActions.setAppError('There\'s been an error. Please contact support.'))
       }
-    })
-
+      })
+    
+    let history = useHistory()
+    const goToListView = () => {
+        console.log(`clicked: ${props.data.guid}`);
+        history.push({
+            pathname: `/list/${props.data.guid}/${props.data.id}`,
+            state: {
+                listData: {
+                    title: props.data.title,
+                    description: props.data.description
+                }
+            }
+        })
+    }
+    
     return (
-        <li id={props.data.guid}>
+        <li id={props.data.guid} onClick={goToListView}>
             <div>
                 <h6>{props.data.title}</h6>
                 <p>{date}</p>

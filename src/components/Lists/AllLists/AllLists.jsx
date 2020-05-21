@@ -8,9 +8,10 @@ import './AllLists.css'
 import allActions from '../../../actions/index'
 
 
-const AllLists = () => {
+const AllLists = props => {
 
     const [allListsResponse, setAllListsResponse] = useState(false)
+    const [ hideAllListsButton, setHideAllListsButton] = useState(false)
     const [id] = useState(nanoid)
     const dispatch = useDispatch()
     const jwt = useSelector(state => state.jwt)
@@ -18,7 +19,7 @@ const AllLists = () => {
     if (allListsResponse)
         console.log(allListsResponse.data.results[0]);
     
-        const fetchAllLists = () => {
+    const fetchAllLists = () => {
             axios.get('/api/list',
                 {
                 headers: {
@@ -28,7 +29,7 @@ const AllLists = () => {
               })
               .then(response => {
                   if (response.status === 200) {
-                      setAllListsResponse({response: true, data: response.data })                  
+                      setAllListsResponse({ response: true, data: response.data })     
                   }              
               })
                 .catch(error => {
@@ -36,12 +37,14 @@ const AllLists = () => {
                     dispatch(allActions.appErrorActions.setAppError('Services are temporarily disabled. Please try again later.'))
                 } else if (error.response.status === 403) {
                     dispatch(allActions.appErrorActions.setAppError('Please reload your browser or try logging out and back in.'))
+                } else if (error.response.status === 404) {
+                    dispatch(allActions.appErrorActions.setAppError('We couldn\'t find any lists for you! Maybe try adding one!'))                    
                 } else {
                     dispatch(allActions.appErrorActions.setAppError('There\'s been an error. Please contact support.'))
                 }
               })
-        }    
-
+        }
+        
     return (
         <div className="all-lists col">
             {<ul id="allLists">
@@ -55,7 +58,9 @@ const AllLists = () => {
                 : null
                 }
             </ul>}
-            <button onClick={fetchAllLists}>Get Lists</button>
+            {(hideAllListsButton) ? null :
+                <button className="theme-button-alternate theme-font" onClick={() => { fetchAllLists(); setHideAllListsButton(true); }}>Where's my lists?</button>
+            }
         </div>
     )
 }
